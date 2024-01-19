@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тест</title>
+    <style>
+        body {
+            font-family: Seravek;
+        }
+        .hidden {
+            display: none;
+        }
+        .red {
+            color: red;
+        }
+        .green {
+            color: green;
+        }
+        button {
+            font-family: Seravek;
+            background-color: #FAA500;
+            color: black;
+        }
+        input {
+            font-family: Seravek;
+            background-color: #FAA500;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Страница ввода кода участия -->
+    <div id="codePage">
+        <h1>Введите код участия:</h1>
+        <input type="text" id="codeInput">
+        <button onclick="checkCode()">Подтвердить</button>
+        <p id="errorMessage" class="red hidden">
+            Введён неверный код участия, попробуйте снова
+        </p>
+       
+        <details><summary><h3>Где взять код участия?</h3> </summary>
+            <p>Попросите код у отвественного за проведение теста. </p> </details>
+    
+    </div>
+
+    <!-- Страница теста -->
+    <div id="testPage" class="hidden">
+        <h1>Тест</h1>
+        <div id="task1">
+            <h2>1. </h2>
+            <p>Переведите число 16 в шестнадцатеричную систему счисления (hex).</p>
+            <input type="text" id="answer1">
+            <span id="result1"></span>
+        </div>
+        <div id="task2">
+            <h2>2.</h2>
+            <p>Переведите число 2 в бинарную (двоичную) систему счисления (bin).</p>
+            <input type="text" id="answer2">
+            <span id="result2"></span>
+        </div>
+        <button onclick="finishTest()">Закончить</button>
+        <p id="completionError" class="red hidden">
+            Выполнение не завершено. Если Вы не можете ответить на задание, следует так и написать в решении или ответить "наобум"
+        </p>
+    </div>
+
+    <script>
+        // Проверка кода участия
+        function checkCode() {
+            var codeInput = document.getElementById("codeInput").value;
+            if (codeInput === "c619h279p278gdk") {
+                document.getElementById("codePage").classList.add("hidden");
+                document.getElementById("testPage").classList.remove("hidden");
+            } else {
+                document.getElementById("errorMessage").classList.remove("hidden");
+            }
+        }
+
+        // Завершение теста
+        function finishTest() {
+            var answer1 = document.getElementById("answer1").value;
+            var answer2 = document.getElementById("answer2").value;
+
+            if (!answer1 || !answer2) {
+                document.getElementById("completionError").classList.remove("hidden");
+                return;
+            }
+
+            document.getElementById("completionError").classList.add("hidden");
+
+            var result1 = document.getElementById("result1");
+            var result2 = document.getElementById("result2");
+
+            if (answer1 === "10") {
+                result1.innerText = "+";
+                result1.classList.add("green");
+            } else {
+                result1.innerText = "-";
+                result1.classList.add("red");
+            }
+
+            if (answer2 === "10") {
+                result2.innerText = "+";
+                result2.classList.add("green");
+            } else {
+                result2.innerText = "-";
+                result2.classList.add("red");
+            }
+
+            document.getElementById("answer1").disabled = true;
+            document.getElementById("answer2").disabled = true;
+            document.getElementsByTagName("button")[0].disabled = true;
+        }
+    </script>
+</body>
+</html>
